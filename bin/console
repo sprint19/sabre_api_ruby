@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "sabre_api_ruby"
+
+# You can add fixtures and/or initialization code here to make
+# interactive console sessions easier to work with.
+
+puts "Sabre API Ruby Console"
+puts "======================"
+puts "Available: SabreApiRuby"
+puts ""
+
+# Configure for testing
+SabreApiRuby.configure do |config|
+  config.client_id = "test_client_id"
+  config.client_secret = "test_client_secret"
+  config.environment = :test
+end
+
+require "irb"
+IRB.start(__FILE__) 
