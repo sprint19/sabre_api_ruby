@@ -5,8 +5,6 @@ module SabreApiRuby
 
   class ConfigurationError < Error; end
 
-  class AuthenticationError < Error; end
-
   class APIError < Error
     attr_reader :status_code, :error_code, :response_body
 
@@ -18,6 +16,8 @@ module SabreApiRuby
     end
   end
 
+  class AuthenticationError < APIError; end
+
   class RateLimitError < APIError; end
 
   class ValidationError < APIError; end
@@ -25,4 +25,4 @@ module SabreApiRuby
   class NotFoundError < APIError; end
 
   class ServerError < APIError; end
-end 
+end

@@ -1,0 +1,56 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Dependencies
+/vendor/bundle
+/vendor/cache
+/vendor/gems
+/vendor/ruby
+
+# Build artifacts
+/pkg
+*.gem
+*.tar.gz
+
+# Documentation
+/doc
+/rdoc
+
+# Coverage reports
+/coverage
+/.simplecov
+
+# Logs
+*.log
+/log
+
+# Temporary files
+*.swp
+*.swo
+*~
+.DS_Store
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-*
+
+# RSpec
+/spec/examples.txt
+/spec/fixtures/vcr_cassettes/
+
+# Rails
+/tmp
+/db/*.sqlite3
+/db/*.sqlite3-journal
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini 

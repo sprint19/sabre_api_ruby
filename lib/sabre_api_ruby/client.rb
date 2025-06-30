@@ -41,13 +41,13 @@ module SabreApiRuby
 
     def request(method, endpoint, params = {})
       token = get_access_token
-      
+
       response = connection.send(method) do |req|
         req.url endpoint
-        req.headers["Authorization"] = "Bearer #{token.token}"
-        req.headers["Content-Type"] = "application/json"
-        req.headers["User-Agent"] = configuration.user_agent
-        
+        req.headers['Authorization'] = "Bearer #{token.token}"
+        req.headers['Content-Type'] = 'application/json'
+        req.headers['User-Agent'] = configuration.user_agent
+
         case method
         when :get
           req.params.update(params)
@@ -58,9 +58,9 @@ module SabreApiRuby
 
       handle_response(response)
     rescue Faraday::TimeoutError
-      raise APIError, "Request timeout"
+      raise APIError, 'Request timeout'
     rescue Faraday::ConnectionFailed
-      raise APIError, "Connection failed"
+      raise APIError, 'Connection failed'
     end
 
     private
@@ -70,7 +70,7 @@ module SabreApiRuby
         configuration.client_id,
         configuration.client_secret,
         site: configuration.oauth_token_url,
-        token_url: "/",
+        token_url: '/',
         auth_scheme: :request_body
       )
     end
@@ -90,26 +90,26 @@ module SabreApiRuby
       when 200..299
         response.body
       when 400
-        raise ValidationError.new("Bad Request", response.status, extract_error_code(response), response.body)
+        raise ValidationError.new('Bad Request', response.status, extract_error_code(response), response.body)
       when 401
-        raise AuthenticationError.new("Unauthorized", response.status, extract_error_code(response), response.body)
+        raise AuthenticationError.new('Unauthorized', response.status, extract_error_code(response), response.body)
       when 404
-        raise NotFoundError.new("Not Found", response.status, extract_error_code(response), response.body)
+        raise NotFoundError.new('Not Found', response.status, extract_error_code(response), response.body)
       when 429
-        raise RateLimitError.new("Rate Limited", response.status, extract_error_code(response), response.body)
+        raise RateLimitError.new('Rate Limited', response.status, extract_error_code(response), response.body)
       when 500..599
-        raise ServerError.new("Server Error", response.status, extract_error_code(response), response.body)
+        raise ServerError.new('Server Error', response.status, extract_error_code(response), response.body)
       else
-        raise APIError.new("Unexpected response", response.status, extract_error_code(response), response.body)
+        raise APIError.new('Unexpected response', response.status, extract_error_code(response), response.body)
       end
     end
 
     def extract_error_code(response)
       return nil unless response.body.is_a?(Hash)
-      
-      response.body.dig("errors", 0, "code") || 
-      response.body.dig("error", "code") ||
-      response.body["code"]
+
+      response.body.dig('errors', 0, 'code') ||
+        response.body.dig('error', 'code') ||
+        response.body['code']
     end
   end
-end 
+end
